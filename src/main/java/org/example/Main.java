@@ -7,17 +7,12 @@ import com.sun.speech.freetts.VoiceManager;
 public class Main {
     public static void main(String[] args) {
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-        /*Voice[] voices = VoiceManager.getInstance().getVoices();
-        for (Voice v: voices)
-            System.out.println("Debug: " + v.getName());*/
-        Voice voice = VoiceManager.getInstance().getVoice("kevin16");
-        if (voice == null)
-        {
-            System.out.println("Error: Voice is null!");
+        FileManager fileManager = new FileManager();
+        String fileContent = fileManager.GetFileText();
+
+        if (!fileManager.CheckFile())
             return;
-        }
-        voice.allocate();
-        System.out.println("Voice Settings: Rate - " + voice.getRate() + ", Pitch - " + voice.getPitch() + ", Volume - " + voice.getVolume());
-        voice.speak("Hello, i am kevin16!");
+        VoiceHandler voiceHandler = new VoiceHandler();
+        voiceHandler.SendVoiceMessage(fileContent);
     }
 }
